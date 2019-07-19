@@ -8,6 +8,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import _ from "lodash";
 
 class Products extends Component {
   state = {
@@ -25,13 +26,23 @@ class Products extends Component {
       });
   }
 
+  //here is the function for placing the order
+  placeOrder = () => {};
+
+  //Here is the function for deleting from the cart
+  deleteCart(e, or) {
+    this.setState({
+      ordered: _.filter(this.state.ordered, order => order.id !== or.id)
+    });
+  }
+
   //handling the add to cart click here
   handleClick(e, product) {
     // console.log(product);
     this.setState({
       ordered: [...this.state.ordered, product]
     });
-    console.log(this.state.ordered);
+    // console.log(this.state.ordered);
   }
 
   render() {
@@ -133,7 +144,15 @@ class Products extends Component {
                     return (
                       <div style={{ marginTop: "20px" }}>
                         <Paper style={{ padding: "20px 20px" }}>
-                          *{order.title} costs =======> {order.price}
+                          *{order.title} costs =======> {order.price}$
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            style={{ marginLeft: "10px" }}
+                            onClick={e => this.deleteCart(e, order)}
+                          >
+                            x
+                          </Button>
                         </Paper>
                       </div>
                     );
@@ -153,10 +172,21 @@ class Products extends Component {
                   </Typography>
 
                   <Paper>
-                    <Typography variant="h6">
-                      The Subtotal amount is : {total}
+                    <Typography
+                      variant="h6"
+                      style={{ padding: "20px 20px", marginTop: "20px" }}
+                    >
+                      The Subtotal amount is : {total}$
                     </Typography>
                   </Paper>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    fullWidth="true"
+                    onClick={this.placeOrder}
+                  >
+                    Place Order
+                  </Button>
                 </Grid>
               </Grid>
             </div>
