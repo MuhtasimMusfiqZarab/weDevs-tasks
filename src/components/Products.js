@@ -11,7 +11,8 @@ import Typography from "@material-ui/core/Typography";
 
 class Products extends Component {
   state = {
-    products: []
+    products: [],
+    ordered: []
   };
 
   //fetching the json data
@@ -20,27 +21,41 @@ class Products extends Component {
       .then(res => res.json())
       .then(products => {
         this.setState({ products });
-        console.log(products);
+        // console.log(products);
       });
+  }
+
+  //handling the add to cart click here
+  handleClick(e, product) {
+    // console.log(product);
+    this.setState({
+      ordered: [...this.state.ordered, product]
+    });
+    console.log(this.state.ordered);
   }
 
   render() {
     return (
       <div>
         <div className="root">
-          <Grid container spacing={3}>
+          <Grid container spacing={5}>
             {this.state.products.map(product => {
               return (
-                <Grid item xs={4}>
+                <Grid
+                  key={product.id}
+                  item
+                  xs={4}
+                  style={{ marginTop: "40px" }}
+                >
                   <Paper className="paper">
                     <Card className="card">
                       <CardActionArea>
                         <CardMedia
                           component="img"
-                          alt="Contemplative Reptile"
+                          alt={product.title}
                           height="140"
                           image={product.image}
-                          title="Conon EOS 77D"
+                          title={product.title}
                         />
                         <CardContent>
                           <Typography
@@ -62,11 +77,13 @@ class Products extends Component {
                         </CardContent>
                       </CardActionArea>
                       <CardActions>
-                        <Button size="small" color="primary">
-                          Share
-                        </Button>
-                        <Button size="small" color="primary">
-                          Learn More
+                        <Button
+                          size="medium"
+                          color="primary"
+                          fullWidth="true"
+                          onClick={e => this.handleClick(e, product)}
+                        >
+                          Add to cart
                         </Button>
                       </CardActions>
                     </Card>
