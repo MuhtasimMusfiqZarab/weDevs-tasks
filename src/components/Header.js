@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -32,9 +33,19 @@ export default function Header() {
             aria-label="Menu"
           />
           <Typography variant="h6" className={classes.title}>
-            Shopping Cart
+            <Link style={{ color: "#fff", textDecoration: "none" }} to="/">
+              <Button color="inherit">Shopping Cart</Button>
+            </Link>
           </Typography>
-          <Button color="inherit">Login</Button>
+
+          <Link style={{ color: "#fff", textDecoration: "none" }} to="/login">
+            <Button color="inherit" style={{ marginRight: "50px" }}>
+              Login
+            </Button>
+          </Link>
+          <Link style={{ color: "#fff", textDecoration: "none" }} to="/order">
+            <Button color="inherit">Ordered Products</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>
