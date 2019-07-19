@@ -35,6 +35,8 @@ class Products extends Component {
   }
 
   render() {
+    //Here is the total of the ordered products
+    let total = 0;
     return (
       <div>
         <div className="root">
@@ -92,6 +94,73 @@ class Products extends Component {
               );
             })}
           </Grid>
+
+          {this.state.ordered.length > 0 && (
+            <div>
+              <Grid
+                container
+                direction="row"
+                justify="center"
+                alignItems="center"
+                spacing={5}
+              >
+                <Grid item xs={12} style={{ marginLeft: "450px" }}>
+                  <Typography
+                    variant="h2"
+                    component="h2"
+                    style={{ color: "#aaa", margin: "auto" }}
+                  >
+                    Here are Your Orders
+                  </Typography>
+                </Grid>
+              </Grid>
+
+              <Grid container spacing={3}>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                    style={{
+                      color: "#aaa",
+                      marginTop: "20px",
+                      marginLeft: "40%"
+                    }}
+                  >
+                    Ordered Products
+                  </Typography>
+                  {this.state.ordered.map(order => {
+                    total = total + order.price;
+                    return (
+                      <div style={{ marginTop: "20px" }}>
+                        <Paper style={{ padding: "20px 20px" }}>
+                          *{order.title} costs =======> {order.price}
+                        </Paper>
+                      </div>
+                    );
+                  })}
+                </Grid>
+                <Grid item xs={6}>
+                  <Typography
+                    variant="h5"
+                    component="h5"
+                    style={{
+                      color: "#aaa",
+                      marginTop: "20px",
+                      marginLeft: "40%"
+                    }}
+                  >
+                    Billing Info
+                  </Typography>
+
+                  <Paper>
+                    <Typography variant="h6">
+                      The Subtotal amount is : {total}
+                    </Typography>
+                  </Paper>
+                </Grid>
+              </Grid>
+            </div>
+          )}
         </div>
       </div>
     );
